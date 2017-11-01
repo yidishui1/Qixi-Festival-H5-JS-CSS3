@@ -49,10 +49,9 @@
             </li>
             <li> 页面3 </li>
         </ul>
-        <div id="boy" class="charector"></div>
         <div class="button">
-            <button>开门</button>
-            <button>关门</button>
+            <button>开门亮灯</button>
+            <button>关门灯灭</button>
         </div>       
     </div> 
     
@@ -113,15 +112,36 @@ $(function() {
         return doorAction('0%', '50%', 2000);
     }
 
-
+    
+    ///////////
+    // 灯动画 //
+    ///////////
+    var lamp = {
+        elem: $('.b_background'),
+        bright: function() {
+            this.elem.addClass('lamp-bright')
+        },
+        dark: function() {
+            this.elem.removeClass('lamp-bright')
+        }
+    };
+    
     // 开门
     $("button:first").click(function() {
-        openDoor();
+        // 开门
+        openDoor().then(function() {
+            // 开灯
+            lamp.bright();
+        });
     });
 
     // 关门
     $("button:last").click(function() {
-        shutDoor();
+        // 关门
+        shutDoor().then(function() {
+            // 灯灭
+            lamp.dark();
+        });
     });
 
 
