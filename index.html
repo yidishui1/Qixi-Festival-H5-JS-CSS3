@@ -7,51 +7,83 @@
     <link rel='stylesheet' href='style.css' />
     <link rel='stylesheet' href='pageA.css' />
     <style type="text/css">
-        button {
-            width: 80px;
-            height: 50px;
-        }
-        
-        .button {
-            position: absolute;
-            bottom: 0;
-        }
+    /* 天空云 */
     
-        /*-------- 太阳自转以及动画 --------*/
-        #sun {
-            background: url("http://img.mukewang.com/55ade004000106c202010201.png") no-repeat;
-            position: absolute;
-            z-index: 1;
-            top: -30px;
-            height: 201px;
-            width: 201px;
-            right: 40%;
+    .cloud {
+        z-index: 2;
+        position: absolute;
+    }
+    
+    .cloud1 {
+        width: 181px;
+        height: 101px;
+        left: -5%;
+        top: 15%;
+        background: url("http://img.mukewang.com/55addfde0001aec501810101.png");
+    }
+    
+    
+    .cloud2 {
+        width: 301px;
+        height: 140px;
+        right: -5%;
+        background: url("http://img.mukewang.com/55addff500016df503010140.png");
+    }
+    
+    .cloud1Anim{
+        -webkit-animation-name: smallCloud;
+        -webkit-animation-duration: 30s;
+        -webkit-animation-iteration-count: infinite;
+        -moz-animation-name: smallCloud;
+        -moz-animation-duration: 30s;
+        -moz-animation-iteration-count: infinite;
+    }
+    
+    .cloud2Anim{
+        -webkit-animation-name: largeCloud;
+        -webkit-animation-duration: 60s;
+        -webkit-animation-iteration-count: infinite;
+        -moz-animation-name: largeCloud;
+        -moz-animation-duration: 60s;
+        -moz-animation-iteration-count: infinite;
+    }
+    
+    
+    @-webkit-keyframes smallCloud {
+        0% {
+            left: -5%;
         }
-        
-        .rotation {
-            -webkit-animation-name: rotation;
-            -webkit-animation-duration: 30s;
-            -moz-animation-name: rotation;
-            -moz-animation-duration: 30s;
+        100% {
+            left: 100%;
         }
-        
-        @-webkit-keyframes rotation {
-            0% {
-                transform: translateX(0) translateY(0);
-            }
-            100% {
-                transform: translateX(-2000px) translateY(400px);
-            }
+    }
+    
+    @-moz-keyframes smallCloud {
+        0% {
+            left: -5%;
         }
-        
-        @-moz-keyframes rotation {
-            0% {
-                transform: translateX(0) translateY(0);
-            }
-            100% {
-                transform: translateX(-2000px) translateY(400px);
-            }
+        100% {
+            left: 100%;
         }
+    }
+    
+    @-webkit-keyframes largeCloud {
+        0% {
+            right: -5%;
+        }
+        100% {
+            right: 100%;
+        }
+    }
+    
+    @-moz-keyframes largeCloud {
+        0% {
+            right: -5%;
+        }
+        100% {
+            right: 100%;
+        }
+    }
     </style>
 
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
@@ -65,6 +97,7 @@
     <div id='content'>
         <ul class='content-wrap'>
             <li>
+                <!-- 背景 -->
                 <div class="a_background">
                     <div class="a_background_top"></div>
                     <div class="a_background_middle"></div>
@@ -72,6 +105,11 @@
                 </div>
                 <!-- 太阳 -->
                 <div id="sun"></div>
+                <!-- 云 -->
+                <div class="cloudArea">
+                    <div class="cloud cloud1"></div>
+                    <div class="cloud cloud2"></div>
+                </div>
             </li>
             <li> 页面2 </li>
             <li> 页面3 </li>
@@ -109,6 +147,10 @@ $(function() {
         // 太阳公转
         $("#sun").addClass('rotation');
     
+        // 飘云
+        $(".cloud:first").addClass('cloud1Anim');
+        $(".cloud:last").addClass('cloud2Anim');
+
         // 开始第一次走路
         boy.walkTo(2000, 0.2)
             .then(function() {
