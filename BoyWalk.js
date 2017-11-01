@@ -23,6 +23,7 @@ function BoyWalk() {
         var data = getValue('.a_background_middle');
         return data.top + data.height / 2;
     }();
+    
     var $boy = $("#boy");
     var boyWidth = $boy.width();
     var boyHeight = $boy.height();
