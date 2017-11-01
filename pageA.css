@@ -27,3 +27,18 @@
     background-image: url("http://img.mukewang.com/55addfcb000189b314410138.png");
     background-size: 100% 100%;
 }
+
+button {
+    width: 80px;
+    height: 50px;
+}
+
+.button {
+    position: absolute;
+    bottom: 0;
+}
+/*人物暂停*/
+
+.pauseWalk {
+    animation-play-state: paused;
+}
