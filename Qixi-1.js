@@ -18,21 +18,21 @@
         var doorRight = $('.door-right');
         var defer = $.Deferred();
         var count = 2;
-        //等待开门完成
+        // 等待开门完成
         var complete = function() {
             if (count == 1) {
                 defer.resolve();
                 return;
             }
             count--;
-        }
+        };
         doorLeft.transition({
             'left': left
         }, time, complete);
         doorRight.transition({
             'left': right
         }, time, complete);
-        return defer
+        return defer;
     }
 
     // 开门
@@ -67,8 +67,8 @@
                 height: $elem.height(),
                 top: $elem.position().top
             };
-        };
-        //路的Y轴
+        }
+        // 路的Y轴
         var pathY = function() {
             var data = getValue('.a_background_middle');
             return data.top + data.height / 2;
@@ -142,7 +142,7 @@
             var boyPoxTop = posBoy.top;
 
             // 中间位置
-            var boyMiddle     = $boy.width() / 2
+            var boyMiddle     = $boy.width() / 2;
             var doorMiddle    = doorObj.width() / 2;
             var doorTopMiddle = doorObj.height() / 2;
 
@@ -150,9 +150,9 @@
             // 当前需要移动的坐标
             instanceX = (doorOffsetLeft + doorMiddle) - (boyPoxLeft + boyMiddle);
 
-            // Y的坐标
+            //Y的坐标
             // top = 人物底部的top - 门中见的top值
-            instanceY = boyPoxTop + boyHeight - doorOffsetTop + (doorTopMiddle);
+            instanceY = boyPoxTop + boyHeight - doorOffsetTop + (doorTopMiddle);  
 
             // 开始走路
             var walkPlay = stratRun({

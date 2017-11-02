@@ -94,8 +94,8 @@ $(function() {
 
     // 获取数据
     var getValue = function(className) {
-        var $elem = $('' + className + '')
-        // 走路的路线坐标
+        var $elem = $('' + className + '');
+            // 走路的路线坐标
         return {
             height: $elem.height(),
             top: $elem.position().top
@@ -121,7 +121,7 @@ $(function() {
     var girl = {
         elem: $('.girl'),
         getHeight: function() {
-            return this.elem.height();
+            return this.elem.height()
         },
         setOffset: function() {
             this.elem.css({
@@ -131,7 +131,7 @@ $(function() {
         }
     };
 
-    // 修正小女孩位置
+    //修正小女孩位置
     girl.setOffset();
 
 })

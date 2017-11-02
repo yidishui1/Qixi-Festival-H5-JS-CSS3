@@ -23,12 +23,13 @@
    }
    
    .content-wrap > li {
+       background: #CAE1FF;
        color: red;
        float: left;
        overflow: hidden;
        position: relative;
    }
-
+   
    a {
        position: absolute;
        top: 50%;

@@ -18,7 +18,7 @@
         var doorRight = $('.door-right');
         var defer = $.Deferred();
         var count = 2;
-        // 等待开门完成
+        //等待开门完成
         var complete = function() {
             if (count == 1) {
                 defer.resolve();
@@ -67,8 +67,8 @@
                 height: $elem.height(),
                 top: $elem.position().top
             };
-        }
-        // 路的Y轴
+        };
+        //路的Y轴
         var pathY = function() {
             var data = getValue('.a_background_middle');
             return data.top + data.height / 2;
@@ -131,7 +131,7 @@
         // 走进商店
         function walkToShop(runTime) {
             var defer = $.Deferred();
-            var doorObj = $('.door')
+            var doorObj = $('.door');
             // 门的坐标
             var offsetDoor = doorObj.offset();
             var doorOffsetLeft = offsetDoor.left;
@@ -142,7 +142,7 @@
             var boyPoxTop = posBoy.top;
 
             // 中间位置
-            var boyMiddle     = $boy.width() / 2
+            var boyMiddle     = $boy.width() / 2;
             var doorMiddle    = doorObj.width() / 2;
             var doorTopMiddle = doorObj.height() / 2;
 

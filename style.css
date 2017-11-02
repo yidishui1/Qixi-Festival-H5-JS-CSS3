@@ -23,6 +23,7 @@
     }
     
     .content-wrap > li {
+        background: #CAE1FF;        
         color: red;
         float: left;
         overflow: hidden;
