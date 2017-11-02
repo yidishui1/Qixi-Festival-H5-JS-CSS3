@@ -1,4 +1,14 @@
-///////////
+// 动画结束事件
+       var animationEnd = (function() {
+           var explorer = navigator.userAgent;
+           if (~explorer.indexOf('WebKit')) {
+               return 'webkitAnimationEnd';
+           }
+           return 'animationend';
+       })();
+
+
+	///////////
     //灯动画 //
     ///////////
     var lamp = {
@@ -123,7 +133,6 @@
         }();
         
         var $boy = $("#boy");
-        var boyWidth = $boy.width();
         var boyHeight = $boy.height();
 
         // 设置下高度    
@@ -273,8 +282,21 @@
                 // 恢复图片
                 $boy.removeClass('slowWalk slowFlolerWalk').addClass('boyOriginal');
             },
-            setFlolerWalk:function(){
-                 $boy.addClass('slowFlolerWalk');
+            // 转身动作
+            rotate: function(callback) {
+                restoreWalk();
+                $boy.addClass('boy-rotate');
+                // 监听转身完毕
+                if (callback) {
+                    $boy.on(animationEnd, function() {
+                        callback();
+                        $(this).off();
+                    })
+                }
+            },
+            // 取花
+            talkFlower: function() {
+                $boy.addClass('slowFlolerWalk');
             }
 
         }
