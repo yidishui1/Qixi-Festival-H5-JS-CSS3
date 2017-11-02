@@ -156,7 +156,7 @@
 
             // 开始走路
             var walkPlay = stratRun({
-                transform: 'translateX(' + instanceX + 'px),scale(0.3,0.3)',
+                transform: 'translateX(' + instanceX + 'px),translateY(-'+ instanceY +'px),scale(0.5,0.5)',
                 opacity: 0.1
             }, 2000);
             // 走路完毕
