@@ -89,7 +89,7 @@
 .water_2 {
     width: 161px;
     height: 9px;
-    top: 28%;
+    top: 30%;
     left: 45%;
     background: url(http://img.mukewang.com/55ade1e000010f2908540027.png) -693px -0px no-repeat;
     -webkit-animation-delay: 2s;
@@ -166,6 +166,14 @@
     width: 30px;
     height: 31px;
     background-image: url("http://img.mukewang.com/55ade1fe00016b8900300031.png");
+    -webkit-animation-name: flash;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -moz-animation-name: flash;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-direction: alternate;
 }
 
 .stars1 {
@@ -178,36 +186,36 @@
 .stars2 {
     top: 15%;
     left: 20%;
-    -webkit-animation-duration: 5s;
-    -moz-animation-duration: 5s;
+    -webkit-animation-duration: 20s;
+    -moz-animation-duration: 20s;
 }
 
 .stars3 {
     top: 25%;
     left: 85%;
-    -webkit-animation-duration: 5s;
-    -moz-animation-duration: 5s;
+    -webkit-animation-duration: 15s;
+    -moz-animation-duration: 15s;
 }
 
 .stars4 {
     top: 30%;
     left: 70%;
-    -webkit-animation-duration: 5s;
-    -moz-animation-duration: 5s;
+    -webkit-animation-duration: 25s;
+    -moz-animation-duration: 25s;
 }
 
 .stars5 {
     top: 25%;
     left: 20%;
-    -webkit-animation-duration: 5s;
-    -moz-animation-duration: 5s;
+    -webkit-animation-duration: 30s;
+    -moz-animation-duration: 30s;
 }
 
 .stars6 {
     top: 10%;
     left: 65%;
-    -webkit-animation-duration: 5s;
-    -moz-animation-duration: 5s;
+    -webkit-animation-duration: 10s;
+    -moz-animation-duration: 10s;
 }
 
 @-webkit-keyframes flash {

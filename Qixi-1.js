@@ -11,6 +11,56 @@
         }
     };
 
+    var container = $("#content");
+    var swipe = Swipe(container);
+    visualWidth = container.width();
+    visualHeight = container.height();
+
+    // 页面滚动到指定的位置
+    function scrollTo(time, proportionX) {
+        var distX = visualWidth * proportionX;
+        swipe.scrollTo(distX, time);
+    }
+
+    // 获取数据
+    var getValue = function(className) {
+        var $elem = $('' + className + '');
+        // 走路的路线坐标
+        return {
+            height: $elem.height(),
+            top: $elem.position().top
+        };
+    };
+
+    // 桥的Y轴
+    var bridgeY = function() {
+        var data = getValue('.c_background_middle');
+        return data.top;
+    }();
+
+    ////////
+    //小女孩 //
+    ////////
+    var girl = {
+        elem: $('.girl'),
+        getHeight: function() {
+            return this.elem.height()
+        },
+        setOffset: function() {
+            this.elem.css({
+                left: visualWidth / 2,
+                top: bridgeY - this.getHeight()
+            });
+        }
+    };
+
+    // 修正小女孩位置
+    girl.setOffset();
+
+
+    // 用来临时调整页面
+    swipe.scrollTo(visualWidth * 2, 0);
+
 
     function doorAction(left, right, time) {
         var $door = $('.door');
@@ -45,9 +95,6 @@
         return doorAction('0%', '50%', 2000);
     }
 
-
-    var instanceX;
-
     /**
      * 小孩走路
      * @param {[type]} container [description]
@@ -62,12 +109,12 @@
         // 获取数据
         var getValue = function(className) {
             var $elem = $('' + className + '');
-                // 走路的路线坐标
+            // 走路的路线坐标
             return {
                 height: $elem.height(),
                 top: $elem.position().top
             };
-        }
+        };
         // 路的Y轴
         var pathY = function() {
             var data = getValue('.a_background_middle');
@@ -78,10 +125,10 @@
         var boyWidth = $boy.width();
         var boyHeight = $boy.height();
 
-        // 设置下高度    
+        //设置下高度    
         $boy.css({
             top: pathY - boyHeight + 25
-        })
+        });
 
         // 暂停走路
         function pauseWalk() {
@@ -135,28 +182,28 @@
             // 门的坐标
             var offsetDoor = doorObj.offset();
             var doorOffsetLeft = offsetDoor.left;
-            var doorOffsetTop  = offsetDoor.top;
+            var doorOffsetTop = offsetDoor.top;
             // 小孩当前的坐标
             var posBoy = $boy.position();
             var boyPoxLeft = posBoy.left;
             var boyPoxTop = posBoy.top;
 
             // 中间位置
-            var boyMiddle     = $boy.width() / 2;
-            var doorMiddle    = doorObj.width() / 2;
+            var boyMiddle = $boy.width() / 2;
+            var doorMiddle = doorObj.width() / 2;
             var doorTopMiddle = doorObj.height() / 2;
 
 
             // 当前需要移动的坐标
             instanceX = (doorOffsetLeft + doorMiddle) - (boyPoxLeft + boyMiddle);
 
-            //Y的坐标
+            // Y的坐标
             // top = 人物底部的top - 门中见的top值
-            instanceY = boyPoxTop + boyHeight - doorOffsetTop + (doorTopMiddle);  
+            instanceY = boyPoxTop + boyHeight - doorOffsetTop + (doorTopMiddle);
 
             // 开始走路
             var walkPlay = stratRun({
-                transform: 'translateX(' + instanceX + 'px),translateY(-'+ instanceY +'px),scale(0.5,0.5)',
+                transform: 'translateX(' + instanceX + 'px),translateY(-' + instanceY + 'px),scale(0.5,0.5)',
                 opacity: 0.1
             }, 2000);
             // 走路完毕
@@ -181,7 +228,7 @@
             // 走路完毕
             walkPlay.done(function() {
                 defer.resolve();
-            })
+            });
             return defer;
         }
 
@@ -214,5 +261,6 @@
             setColoer: function(value) {
                 $boy.css('background-color', value);
             }
+            
         }
     }

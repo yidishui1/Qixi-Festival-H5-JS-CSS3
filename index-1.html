@@ -4,10 +4,10 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>慕课七夕主题</title>
-    <link rel='stylesheet' href='style-1.css' />
-    <link rel='stylesheet' href='pageA-1.css' />
-    <link rel='stylesheet' href='pageB-1.css' />
-    <link rel='stylesheet' href='pageC-1.css' />
+    <link rel='stylesheet' href='style.css' />
+    <link rel='stylesheet' href='pageA.css' />
+    <link rel='stylesheet' href='pageB.css' />
+    <link rel='stylesheet' href='pageC.css' />
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
     <script type="text/javascript" src="http://img.mukewang.com/down/55ac9ea30001ace700000000.js"></script>
 </head>
@@ -78,65 +78,73 @@
                 </ul>
             </li>
         </ul>
+        <div id="boy" class="charector"></div>
+    </div>
+    <div class="button">
+        <button>开始</button>
     </div>
 </body>
 <script type="text/javascript">
 $(function() {
-
-    var container = $("#content");
-    var swipe = Swipe(container);
-    var visualWidth = container.width();
-    // 页面滚动到指定的位置
-    function scrollTo(time, proportionX) {
-        var distX = visualWidth * proportionX;
-        swipe.scrollTo(distX, time);
-    }
-
-    // 获取数据
-    var getValue = function(className) {
-        var $elem = $('' + className + '');
-            // 走路的路线坐标
-        return {
-            height: $elem.height(),
-            top: $elem.position().top
-        };
-    };
-
-    // 桥的Y轴
-    var bridgeY = function() {
-        var data = getValue('.c_background_middle');
-        return data.top;
-    }();
-
-    ////////////////////////////////////////////////////////
-    // ================= 动画处理 ======================= //
-    ////////////////////////////////////////////////////////
-
-    // 用来临时调整页面
-    swipe.scrollTo(visualWidth * 2, 0);
-
     ////////
     //小女孩 //
     ////////
     var girl = {
         elem: $('.girl'),
         getHeight: function() {
-            return this.elem.height()
+            return this.elem.height();
+        },
+        // 转身动作
+        rotate: function() {
+            this.elem.addClass('girl-rotate');
         },
         setOffset: function() {
             this.elem.css({
                 left: visualWidth / 2,
                 top: bridgeY - this.getHeight()
             });
+        },
+        getOffset: function() {
+            return this.elem.offset();
+        },
+        getWidth: function() {
+            return this.elem.width();
         }
     };
-
-    //修正小女孩位置
+    // 修正小女孩位置
     girl.setOffset();
+
+    //////////
+    // 小孩走路 //
+    //////////
+    var boy = BoyWalk();
+    
+    boy.setFlolerWalk();
+
+    // 开始
+    $("button:first").click(function() {
+    
+        // 第一次走路到桥底边left,top
+        boy.walkTo(2000, 0.15)
+            .then(function() {
+                // 第二次走路到桥上left,top
+                return boy.walkTo(1500, 0.25, (bridgeY - girl.getHeight()) / visualHeight);
+            })
+            .then(function() {
+                // 实际走路的比例
+                var proportionX = (girl.getOffset().left - boy.getWidth() + girl.getWidth() / 5) / visualWidth;
+                // 第三次桥上直走到小女孩面前
+                return boy.walkTo(1500, proportionX);
+            }).then(function() {
+                // 图片还原原地停止状态
+                boy.resetOriginal();
+            });
+    })
+
 
 })
 </script>
-<script type="text/javascript" src="Swipe-1.js"></script>
-<script type="text/javascript" src="Qixi-1.js"></script>
+<script type="text/javascript" src="Swipe.js"></script>
+<script type="text/javascript" src="Qixi.js"></script>
 
 </html>

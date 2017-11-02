@@ -11,6 +11,55 @@
         }
     };
 
+        var container = $("#content");
+        var swipe = Swipe(container);
+        visualWidth = container.width();
+        visualHeight = container.height();
+
+        // 页面滚动到指定的位置
+        function scrollTo(time, proportionX) {
+            var distX = visualWidth * proportionX;
+            swipe.scrollTo(distX, time);
+        }
+
+        // 获取数据
+        var getValue = function(className) {
+            var $elem = $('' + className + '');
+            // 走路的路线坐标
+            return {
+                height: $elem.height(),
+                top: $elem.position().top
+            };
+        };
+
+        // 桥的Y轴
+        var bridgeY = function() {
+            var data = getValue('.c_background_middle');
+            return data.top;
+        }();
+
+        ////////
+        //小女孩 //
+        ////////
+        var girl = {
+            elem: $('.girl'),
+            getHeight: function() {
+                return this.elem.height()
+            },
+            setOffset: function() {
+                this.elem.css({
+                    left: visualWidth / 2,
+                    top: bridgeY - this.getHeight()
+                });
+            }
+        };
+
+        // 修正小女孩位置
+        girl.setOffset();
+
+
+        // 用来临时调整页面
+        swipe.scrollTo(visualWidth * 2, 0);
 
     function doorAction(left, right, time) {
         var $door = $('.door');
@@ -46,7 +95,6 @@
     }
 
 
-    var instanceX;
 
     /**
      * 小孩走路
@@ -214,6 +262,20 @@
             },
             setColoer: function(value) {
                 $boy.css('background-color', value)
+            },
+            // 获取男孩的宽度
+            getWidth: function() {
+                return $boy.width();
+            },
+            // 复位初始状态
+            resetOriginal: function() {
+                this.stopWalk();
+                // 恢复图片
+                $boy.removeClass('slowWalk slowFlolerWalk').addClass('boyOriginal');
+            },
+            setFlolerWalk:function(){
+                 $boy.addClass('slowFlolerWalk');
             }
+
         }
     }
