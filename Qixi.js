@@ -135,16 +135,28 @@
             // 门的坐标
             var offsetDoor = doorObj.offset();
             var doorOffsetLeft = offsetDoor.left;
+            var doorOffsetTop  = offsetDoor.top;
             // 小孩当前的坐标
-            var offsetBoy     = $boy.offset();
-            var boyOffetLeft = offsetBoy.left;
+            var posBoy = $boy.position();
+            var boyPoxLeft = posBoy.left;
+            var boyPoxTop = posBoy.top;
+
+            // 中间位置
+            var boyMiddle     = $boy.width() / 2
+            var doorMiddle    = doorObj.width() / 2;
+            var doorTopMiddle = doorObj.height() / 2;
+
 
             // 当前需要移动的坐标
-            instanceX = (doorOffsetLeft + doorObj.width() / 2) - (boyOffetLeft + $boy.width() / 2);
+            instanceX = (doorOffsetLeft + doorMiddle) - (boyPoxLeft + boyMiddle);
+
+            // Y的坐标
+            // top = 人物底部的top - 门中见的top值
+            instanceY = boyPoxTop + boyHeight - doorOffsetTop + (doorTopMiddle);
 
             // 开始走路
             var walkPlay = stratRun({
-                transform: 'translateX(' + instanceX + 'px),scale(0.3,0.3)',
+            	transform: 'translateX(' + instanceX + 'px),translateY(-'+ instanceY +'px),scale(0.5,0.5)',
                 opacity: 0.1
             }, runTime);
             // 走路完毕
@@ -163,7 +175,7 @@
             restoreWalk();
             //开始走路
             var walkPlay = stratRun({
-                transform: 'translateX(' + instanceX + 'px),scale(1,1)',
+            	transform: 'translateX(' + instanceX + 'px),translateY(0),scale(1,1)',
                opacity: 1
             }, runTime);
             //走路完毕
@@ -173,18 +185,6 @@
             return defer; 
         }
 
-        
-        // 取花
-        function talkFlower() {
-            // 增加延时等待效果
-            var defer = $.Deferred();
-            setTimeout(function() {
-                // 取花
-                $boy.addClass('slowFlolerWalk');
-                defer.resolve();
-            }, 1000);
-            return defer;
-        }
 
         // 计算移动距离
         function calculateDist(direction, proportion) {
@@ -214,10 +214,6 @@
             },
             setColoer: function(value) {
                 $boy.css('background-color', value)
-            },
-            // 取花
-            talkFlower: function() {
-                return talkFlower();
             }
         }
     }

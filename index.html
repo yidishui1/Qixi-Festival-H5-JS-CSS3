@@ -7,6 +7,7 @@
     <link rel='stylesheet' href='style.css' />
     <link rel='stylesheet' href='pageA.css' />
     <link rel='stylesheet' href='pageB.css' />   
+    <link rel='stylesheet' href='pageC.css' />
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
     <script type="text/javascript" src="http://img.mukewang.com/down/55ac9ea30001ace700000000.js"></script>
     <script type="text/javascript" src="Swipe.js"></script>
@@ -49,12 +50,36 @@
                 <!-- 鸟 -->
                 <div class="bird"></div>
             </li>
-            <li> 页面3 </li>
+            <!-- 第三副画面 -->
+            <li>
+                <!-- 背景图 -->
+                <div class="c_background">
+                    <div class="c_background_top"></div>
+                    <div class="c_background_middle"></div>
+                    <div class="c_background_botton"></div>
+                </div>
+                <!-- 小女孩 -->
+                <div class="girl"></div>
+                <!-- 水波 -->
+                <div class="bridge-bottom">
+                    <div class="water">
+                        <div id="water1" class="water_1"></div>
+                        <div id="water2" class="water_2"></div>
+                        <div id="water3" class="water_3"></div>
+                        <div id="water4" class="water_4"></div>
+                    </div>
+                </div>
+                <!-- 星星 -->
+                <ul class="stars">
+                    <li class="stars1"></li>
+                    <li class="stars2"></li>
+                    <li class="stars3"></li>
+                    <li class="stars4"></li>
+                    <li class="stars5"></li>
+                    <li class="stars6"></li>
+                </ul>
+            </li>
         </ul>
-        <div id="boy" class="charector"></div>
-        <div class="button">
-            <button>开始</button>
-        </div>    
     </div> 
     
 </body>
@@ -64,73 +89,56 @@ $(function() {
 
     var container = $("#content");
     var swipe = Swipe(container);
+    var visualWidth = container.width();
     // 页面滚动到指定的位置
     function scrollTo(time, proportionX) {
-        var distX = container.width() * proportionX;
+        var distX = visualWidth * proportionX;
         swipe.scrollTo(distX, time);
     } 
+
+    // 获取数据
+    var getValue = function(className) {
+        var $elem = $('' + className + '')
+        // 走路的路线坐标
+        return {
+            height: $elem.height(),
+            top: $elem.position().top
+        };
+    };
+
+    // 桥的Y轴
+    var bridgeY = function() {
+        var data = getValue('.c_background_middle');
+        return data.top;
+    }();
 
     ////////////////////////////////////////////////////////
     //=================== 动画处理 ====================== //
     ////////////////////////////////////////////////////////
     
     //用来临时调整页面
-    swipe.scrollTo(container.width(), 0);
+    swipe.scrollTo(visualWidth * 2, 0);
 
 
-    /////////
-    //右边飞鸟 //
-    /////////
-    var bird = {
-        elem: $(".bird"),
-        fly: function() {
-            this.elem.addClass('birdFly')
-            this.elem.transition({
-                right: container.width()
-            }, 15000, 'linear');
-        }
-    };    
-
-    
-    var boy = BoyWalk();
-
-
-    function startRun() {
-    
-        boy.walkTo(2000, 0.5)
-            .then(function() {
-                //暂停走路
-                boy.stopWalk()
-            })
-            .then(function() {
-                //开门
-                return openDoor();
-            })
-            .then(function() {
-                //开灯
-                lamp.bright()
-            })
-            .then(function() {
-                //进商店
-                return boy.toShop(2000)
-            }).then(function(){
-                // 取花
-                return boy.talkFlower();
-            }).then(function() {
-                // 飞鸟
-                bird.fly();                
-            }).then(function() {
-                //出商店
-                return boy.outShop(2000)
-            }).then(function() {
-                //灯暗
-                lamp.dark()
+    ////////
+    //小女孩 //
+    ////////
+    var girl = {
+        elem: $('.girl'),
+        getHeight: function() {
+            return this.elem.height();
+        },
+        setOffset: function() {
+            this.elem.css({
+                left: visualWidth / 2,
+                top: bridgeY - this.getHeight()
             });
-    }
-    
-    
-    // 开始
-    $("button:first").click(startRun);
+        }
+    };   
+
+    // 修正小女孩位置
+    girl.setOffset();    
+
 
 });     
 
