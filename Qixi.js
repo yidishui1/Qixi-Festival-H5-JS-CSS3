@@ -146,7 +146,7 @@
             var walkPlay = stratRun({
                 transform: 'translateX(' + instanceX + 'px),scale(0.3,0.3)',
                 opacity: 0.1
-            }, 2000);
+            }, runTime);
             // 走路完毕
             walkPlay.done(function() {
                 $boy.css({
@@ -173,11 +173,24 @@
             return defer; 
         }
 
+        
+        // 取花
+        function talkFlower() {
+            // 增加延时等待效果
+            var defer = $.Deferred();
+            setTimeout(function() {
+                // 取花
+                $boy.addClass('slowFlolerWalk');
+                defer.resolve();
+            }, 1000);
+            return defer;
+        }
 
         // 计算移动距离
         function calculateDist(direction, proportion) {
             return (direction == "x" ?
                 visualWidth : visualHeight) * proportion;
+            //上面为三目运算符
         }
 
         return {
@@ -201,6 +214,10 @@
             },
             setColoer: function(value) {
                 $boy.css('background-color', value)
+            },
+            // 取花
+            talkFlower: function() {
+                return talkFlower();
             }
         }
     }

@@ -46,6 +46,8 @@
                     <!-- 灯 -->
                     <div class="lamp"></div>
                 </div>
+                <!-- 鸟 -->
+                <div class="bird"></div>
             </li>
             <li> 页面3 </li>
         </ul>
@@ -95,6 +97,9 @@ $(function() {
             .then(function() {
                 //进商店
                 return boy.toShop(2000)
+            }).then(function(){
+                // 取花
+                return boy.talkFlower();
             }).then(function() {
                 //出商店
                 return boy.outShop(2000)
