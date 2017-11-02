@@ -25,7 +25,7 @@
                 return;
             }
             count--;
-        }
+        };
         doorLeft.transition({
             'left': left
         }, time, complete);
@@ -62,12 +62,12 @@
         // 获取数据
         var getValue = function(className) {
             var $elem = $('' + className + '');
-            // 走路的路线坐标
+                // 走路的路线坐标
             return {
                 height: $elem.height(),
                 top: $elem.position().top
             };
-        }
+        };
         // 路的Y轴
         var pathY = function() {
             var data = getValue('.a_background_middle');
@@ -78,7 +78,7 @@
         var boyWidth = $boy.width();
         var boyHeight = $boy.height();
 
-        // 设置下高度    
+        //设置下高度    
         $boy.css({
             top: pathY - boyHeight + 25
         });
@@ -163,17 +163,17 @@
             restoreWalk();
             // 开始走路
             var walkPlay = stratRun({
-                    transform: 'translateX(' + instanceX + 'px),translateY(0),,scale(1,1)',
-                    opacity: 1
-                }, runTime)
-                // 走路完毕
+                transform: 'translateX(' + instanceX + 'px),translateY(0),,scale(1,1)',
+                opacity: 1
+            }, runTime);
+            // 走路完毕
             walkPlay.done(function() {
                 defer.resolve();
             })
             return defer;
         }
 
- 
+
         // 取花
         function talkFlower() {
             // 增加延时等待效果
@@ -195,8 +195,8 @@
         return {
             // 开始走路
             walkTo: function(time, proportionX, proportionY) {
-                var distX = calculateDist('x', proportionX);
-                var distY = calculateDist('y', proportionY);
+                var distX = calculateDist('x', proportionX)
+                var distY = calculateDist('y', proportionY)
                 return walkRun(time, distX, distY);
             },
             // 走进商店

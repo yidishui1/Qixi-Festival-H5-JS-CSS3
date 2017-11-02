@@ -4,9 +4,9 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>慕课七夕主题</title>
-    <link rel='stylesheet' href='style-1.css' />
-    <link rel='stylesheet' href='pageA-1.css' />
-    <link rel='stylesheet' href='pageB-1.css' />
+    <link rel='stylesheet' href='style.css' />
+    <link rel='stylesheet' href='pageA.css' />
+    <link rel='stylesheet' href='pageB.css' />
     <script src="http://libs.baidu.com/jquery/1.9.1/jquery.js"></script>
     <script type="text/javascript" src="http://img.mukewang.com/down/55ac9ea30001ace700000000.js"></script>
 </head>
@@ -67,20 +67,34 @@ $(function() {
     }
 
     ////////////////////////////////////////////////////////
-    // ================= 动画处理  ====================== //
+    // ================= 动画处理 ======================= //
     ////////////////////////////////////////////////////////
 
     // 用来临时调整页面
     swipe.scrollTo(container.width(), 0);
 
-    var boy = BoyWalk();
+    var boy = BoyWalk()
+
+    /////////
+    //右边飞鸟 //
+    /////////
+    var bird = {
+        elem: $(".bird"),
+        fly: function() {
+            this.elem.addClass('birdFly')
+            this.elem.transition({
+                right: container.width()
+            }, 15000, 'linear');
+        }
+    };
+
 
     function startRun() {
 
         boy.walkTo(2000, 0.5)
             .then(function() {
-                // 暂停走路
-                boy.stopWalk();
+                //暂停走路
+                boy.stopWalk()
             })
             .then(function() {
                 // 开门
@@ -96,6 +110,9 @@ $(function() {
             }).then(function(){
                 // 取花
                 return boy.talkFlower();
+            }).then(function() {
+                // 飞鸟
+                bird.fly();
             }).then(function() {
                 // 出商店
                 return boy.outShop(2000);
@@ -114,7 +131,7 @@ $(function() {
 
 })
 </script>
-<script type="text/javascript" src="Swipe-1.js"></script>
-<script type="text/javascript" src="Qixi-1.js"></script>
+<script type="text/javascript" src="Swipe.js"></script>
+<script type="text/javascript" src="Qixi.js"></script>
 
 </html>
