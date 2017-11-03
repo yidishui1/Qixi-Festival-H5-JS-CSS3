@@ -17,8 +17,7 @@ ul li{
 		width    : 100%;
         height   : 100%;
         overflow : hidden;
-        position : absolute;
-       
+        position : absolute;       
 }
 .content-wrap{
 	position:relative;
@@ -28,15 +27,17 @@ ul li{
         overflow: hidden;
         position: relative;
 }
+
 button {
     width: 100px;
     height: 50px;
-}
-    
+}    
 .button {
     position: absolute;
     bottom: 0;
 }
+
+/* 小男孩 */
 .charector {
     width: 151px;
     height: 291px;
@@ -46,18 +47,17 @@ button {
     left: 6%;
     top: 55%;
 }
-
+/* 男孩慢走 */
 .slowWalk {
-     /* 填入动画样式规则 */
-     animation:person-slow 950ms infinite;
+    /* 填入动画样式规则 */
+    animation:person-slow 950ms infinite;
     -moz-animation:person-slow 950ms infinite; /* Firefox */
     -webkit-animation:person-slow 950ms infinite; /* Safari and Chrome */
     -o-animation:person-slow 950ms infinite; /* Opera */
     -webkit-animation-timing-function: steps(1, start);
     animation-timing-function: steps(1, start);
 }
-
- @-webkit-keyframes person-slow {
+@-webkit-keyframes person-slow {
     0% {
         background-position: -0px -291px;
     }
@@ -72,10 +72,8 @@ button {
     }
     100% {
         background-position: -0px -291px;
-    }
-   
+    }  
 }
-
 @-moz-keyframes person-slow {
     0% {
         background-position: -0px -291px;
@@ -95,16 +93,13 @@ button {
 }
     
 .person-move{
-
 }
-
 /* 人物暂停 */
 .pauseWalk {
     -webkit-animation-play-state: paused;
     -moz-animation-play-state: paused;
 } 
-
-/* 人物带花 */
+/* 男孩带花 */
 .slowFlowerWalk{
     -webkit-animation-name: person-floler-slow;
     -webkit-animation-duration: 950ms;
@@ -115,9 +110,6 @@ button {
     -moz-animation-iteration-count: infinite;
     -moz-animation-timing-function: step-start;
 }
-
-/*带花*/
-
 @-webkit-keyframes person-floler-slow {
    0% {
        background-position: -453px -0px;
@@ -135,7 +127,6 @@ button {
        background-position: -300px -0px;
    }
 }
-
 @-moz-keyframes person-floler-slow {
    0% {
        background-position: -453px -0px;
@@ -153,7 +144,7 @@ button {
        background-position: -300px -0px;
    }
 } 
- 
+/* boy恢复不带花的精灵图 */
 .boyOriginal {
     background-position: -150px -0px;
 }        
@@ -170,8 +161,7 @@ button {
    -moz-animation-iteration-count: 1;
    -moz-animation-timing-function: step-start;
    -moz-animation-fill-mode: forwards;
-}
-   
+}   
 @-webkit-keyframes boy-rotate {
    0% {
        background-position: -603px -291px;
@@ -195,7 +185,6 @@ button {
        background-position: -603px -291px;
    }
 }
-
 @-moz-keyframes boy-rotate {
    0% {
        /*background-position: -603px -291px;*/
@@ -219,6 +208,7 @@ button {
        background-position: -603px -291px;
    }
 }
+
 /* 鸟 */ 
 .bird{
     min-width: 91px;

@@ -10,8 +10,9 @@
     background: url("../images/QixiB-bright.png") no-repeat -9999px -9999px;
 }
 .lamp-bright {
-   background-image:url("../images/QixiB-bright.png");
+    background-image:url("../images/QixiB-bright.png");
 }
+
 .shop {
     width: 39.5%;
     height: 35.5%;

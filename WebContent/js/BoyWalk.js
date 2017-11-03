@@ -16,6 +16,7 @@ function BoyWalk() {
 	var visualWidth = container.width();
 	var visualHeight = container.height();
 
+	//获取事物的height和top属性
 	function getValue(classname) {
 		var $elem = $('' + classname);
 		//返回走路的路线坐标
@@ -26,17 +27,17 @@ function BoyWalk() {
 	}
 	//路的Y轴
 	var pathY = function() {
-
 		var data = getValue('.a_background_middle');
 		return data.top + data.height / 2;
 	}();
 
 	var $boy = $("#boy");
 	var boyHeight = $boy.height();
+	//设置boy的初始top值
 	$('#boy').css({
 		top : pathY - boyHeight + 25//为什么要+25的偏移量呢
 	});
-	// 
+	// 暂停走路的动作
 	function pauseWalk(){
 		$boy.addClass('pauseWalk');
 	}
@@ -72,7 +73,6 @@ function BoyWalk() {
 		$boy.transition(options, runTime, 'linear', function() {
 			dfdPlay.resolve(); // 动画完成
 		});
-
 		return dfdPlay;
 	}
 	//开始走路
@@ -87,7 +87,7 @@ function BoyWalk() {
 		}, time);
 		return d1;
 	}
-
+	//进入商店
 	function walkToShop(runTime) {
 		var defer = $.Deferred();
 		var doorObj = $('.door');
@@ -113,43 +113,43 @@ function BoyWalk() {
 		});
 		return defer;
 	}
-	
-
-
 	var instanceX;
-function walkOutShop(runTime){
-var defer = $.Deferred();
-restoreWalk();
-var walkPlay = startRun({
-	transform: 'scale(1,1)',
-    opacity: 1
-    }, runTime);
-    //走路完毕
-    walkPlay.done(function() {
-    defer.resolve();
-    });
-    return defer; 
-}
-//取花
-function takeFlower(){
-	//设置取花时间为1s
-	var defer = $.Deferred();
-	setTimeout(function(){
-		$boy.addClass('slowFlowerWalk');
-		defer.resolve();
-	}, 1000);
-	return defer;
-}
-//修正女孩位置
-var bridgeY = (function(){
-	var data = getValue('.c_background_middle');
-	return data.top;
-})();
-var girl = {
+	//走出商店
+	function walkOutShop(runTime){
+		var defer = $.Deferred();
+		restoreWalk();
+		var walkPlay = startRun({
+			transform: 'scale(1,1)',
+		    opacity: 1
+		}, runTime);
+		    //走路完毕
+		walkPlay.done(function() {
+		    defer.resolve();
+		});
+		return defer; 
+	}
+	//取花
+	function takeFlower(){
+		//设置取花时间为1s
+		var defer = $.Deferred();
+		setTimeout(function(){
+			$boy.addClass('slowFlowerWalk');
+			defer.resolve();
+		}, 1000);
+		return defer;
+	}
+	//修正女孩位置
+	var bridgeY = (function(){
+		var data = getValue('.c_background_middle');
+		return data.top;
+	})();
+	var girl = {
 		elem : $('.girl'),
+		//获得girl的height
 		getHeight: function(){
 			return this.elem.height();
 		},
+		//设置girl的left和top坐标
 		setOffset: function(){
 			this.elem.css({
 				left: visualWidth / 2,
@@ -164,55 +164,59 @@ var girl = {
 		},
 		// 转身动作
         rotate: function() {
-            this.elem.addClass('girl-rotate')}
+            this.elem.addClass('girl-rotate')
+        }
 	}
-girl.setOffset();
+	//设置girl的left和top坐标
+	girl.setOffset();
 
 
-return {
-	//开始走路
-	/**
-	 * 时间，x比例，y比例
-	 */
-	walkTo : function(time, proportionX, proportionY) {
-		var distX = calculateDist('x', proportionX);
-		var distY = calculateDist('y', proportionY);
-		return walkRun(time, distX, distY);
-	},
-	stopWalk : function() {
-		pauseWalk();
-	},
-	setColoer : function(value) {
-		$boy.css('background-color', value)
-	},
-	//走进商店
-	toShop : function() {
-		return walkToShop.apply(null, arguments);
-	},
-	//走出商店
-	outShop : function() {
-		return walkOutShop.apply(null, arguments);
-	},
-	//取花
-	takeFlower : function(){
-		return takeFlower();
-	},
-	restore : function(){
-		this.stopWalk();
-		$boy.removeClass('slowWalk slowFlolerWalk').addClass('boyOriginal');
-	},
-	rotate : function(callback){
-		 restoreWalk();
-         $boy.addClass('boy-rotate');
-         // 监听转身完毕?????
-         if(callback){
-        	 $boy.on(animationEnd, function() {
-                 callback();
-                 $(this).off();
-             }) 
-         }
-	},
-	girl : girl
-}
+	return {
+		//开始走路
+		/**
+		 * 时间，x比例，y比例
+		 */
+		walkTo : function(time, proportionX, proportionY) {
+			var distX = calculateDist('x', proportionX);
+			var distY = calculateDist('y', proportionY);
+			return walkRun(time, distX, distY);
+		},
+		//走路停止
+		stopWalk : function() {
+			pauseWalk();
+		},
+		setColoer : function(value) {
+			$boy.css('background-color', value)
+		},
+		//走进商店
+		toShop : function() {
+			return walkToShop.apply(null, arguments);
+		},
+		//走出商店
+		outShop : function() {
+			return walkOutShop.apply(null, arguments);
+		},
+		//取花
+		takeFlower : function(){
+			return takeFlower();
+		},
+		//boy恢复不带花的精灵图，暂停走动并取消走动和带花走动效果
+		restore : function(){
+			this.stopWalk();
+			$boy.removeClass('slowWalk slowFlolerWalk').addClass('boyOriginal');
+		},
+		rotate : function(callback){
+			 restoreWalk();
+	         $boy.addClass('boy-rotate');
+	         // 监听转身完毕?????
+	         if(callback){
+	        	 $boy.on(animationEnd, function() {
+	                 callback();
+	                 $(this).off();
+	             }) 
+	         }
+		},
+		girl : girl
+	}
 
 }

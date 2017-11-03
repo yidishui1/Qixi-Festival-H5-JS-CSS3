@@ -67,14 +67,16 @@ function Snow(){
             $flakeContainer.append($flake);
 
             // 开始执行动画
-            $flake.transition({
+            $flake.transition(
+                {
                 top: endPositionTop,
                 left: endPositionLeft,
                 opacity: 0.7
-            }, duration, 'ease-out', function() {
+                },duration, 'ease-out', function() {
                 $(this).remove() //结束后删除
-            });
-        },200)
-    }
+                }
+            );
+        },200);
+    };
     return this;
 }
