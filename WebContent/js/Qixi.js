@@ -104,7 +104,7 @@ function init(){
 	})
 	//第二次原地踏步走
 	.then(function(){
-		return boy.walkTo(5000,0.5);//必须限制有先后关系的一定要用return？？
+		return boy.walkTo(5000,0.5);//加了return后必须等return后的动作彻底执行完毕，才能进行下一个动作。而已经执行的动作仍然继续执行。
 	})
 	//暂停走路
 	.then(function(){
